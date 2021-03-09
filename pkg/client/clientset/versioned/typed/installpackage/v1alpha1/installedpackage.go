@@ -4,6 +4,7 @@ package v1alpha1
 
 import (
 	"time"
+	"context"
 
 	v1alpha1 "github.com/vmware-tanzu/carvel-kapp-controller/pkg/apis/installpackage/v1alpha1"
 	scheme "github.com/vmware-tanzu/carvel-kapp-controller/pkg/client/clientset/versioned/scheme"
@@ -55,7 +56,7 @@ func (c *installedPackages) Get(name string, options v1.GetOptions) (result *v1a
 		Resource("installedpackages").
 		Name(name).
 		VersionedParams(&options, scheme.ParameterCodec).
-		Do().
+		Do(context.TODO()).
 		Into(result)
 	return
 }
@@ -72,7 +73,7 @@ func (c *installedPackages) List(opts v1.ListOptions) (result *v1alpha1.Installe
 		Resource("installedpackages").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Do().
+		Do(context.TODO()).
 		Into(result)
 	return
 }
@@ -89,7 +90,7 @@ func (c *installedPackages) Watch(opts v1.ListOptions) (watch.Interface, error) 
 		Resource("installedpackages").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Watch()
+		Watch(context.TODO())
 }
 
 // Create takes the representation of a installedPackage and creates it.  Returns the server's representation of the installedPackage, and an error, if there is any.
@@ -99,7 +100,7 @@ func (c *installedPackages) Create(installedPackage *v1alpha1.InstalledPackage) 
 		Namespace(c.ns).
 		Resource("installedpackages").
 		Body(installedPackage).
-		Do().
+		Do(context.TODO()).
 		Into(result)
 	return
 }
@@ -112,7 +113,7 @@ func (c *installedPackages) Update(installedPackage *v1alpha1.InstalledPackage) 
 		Resource("installedpackages").
 		Name(installedPackage.Name).
 		Body(installedPackage).
-		Do().
+		Do(context.TODO()).
 		Into(result)
 	return
 }
@@ -128,7 +129,7 @@ func (c *installedPackages) UpdateStatus(installedPackage *v1alpha1.InstalledPac
 		Name(installedPackage.Name).
 		SubResource("status").
 		Body(installedPackage).
-		Do().
+		Do(context.TODO()).
 		Into(result)
 	return
 }
@@ -140,7 +141,7 @@ func (c *installedPackages) Delete(name string, options *v1.DeleteOptions) error
 		Resource("installedpackages").
 		Name(name).
 		Body(options).
-		Do().
+		Do(context.TODO()).
 		Error()
 }
 
@@ -156,7 +157,7 @@ func (c *installedPackages) DeleteCollection(options *v1.DeleteOptions, listOpti
 		VersionedParams(&listOptions, scheme.ParameterCodec).
 		Timeout(timeout).
 		Body(options).
-		Do().
+		Do(context.TODO()).
 		Error()
 }
 
@@ -169,7 +170,7 @@ func (c *installedPackages) Patch(name string, pt types.PatchType, data []byte, 
 		SubResource(subresources...).
 		Name(name).
 		Body(data).
-		Do().
+		Do(context.TODO()).
 		Into(result)
 	return
 }
